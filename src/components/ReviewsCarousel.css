@@ -1,0 +1,136 @@
+.reviews {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+}
+
+.reviews__label {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgba(23, 27, 22, 0.48);
+}
+
+.reviews__viewport {
+  position: relative;
+  height: 520px;
+  overflow: hidden;
+  cursor: grab;
+  touch-action: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    black 36px,
+    black calc(100% - 36px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    black 36px,
+    black calc(100% - 36px),
+    transparent 100%
+  );
+}
+
+.reviews__viewport,
+.reviews__track,
+.review-card,
+.review-card * {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+
+.reviews__viewport--grabbing {
+  cursor: grabbing;
+}
+
+.reviews__track {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  will-change: transform;
+}
+
+.review-card {
+  flex: 0 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px 24px 20px;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.55);
+  border: 1px solid rgba(23, 27, 22, 0.08);
+  box-shadow: 0 8px 24px rgba(23, 27, 22, 0.05);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.review-card__mark {
+  font-family: var(--font-display);
+  font-size: 1.6rem;
+  line-height: 1;
+  color: var(--accent);
+}
+
+.review-card__quote {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: rgba(23, 27, 22, 0.82);
+}
+
+.review-card__meta {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.review-card__avatar {
+  flex-shrink: 0;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  background: rgba(23, 27, 22, 0.1);
+  color: rgba(23, 27, 22, 0.65);
+}
+
+.review-card__who {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.review-card__name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: rgba(23, 27, 22, 0.88);
+}
+
+.review-card__title {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: rgba(23, 27, 22, 0.5);
+}
+
+@media (max-width: 900px) {
+  .reviews__viewport {
+    height: 440px;
+  }
+  .review-card {
+    padding: 18px 20px 16px;
+  }
+}

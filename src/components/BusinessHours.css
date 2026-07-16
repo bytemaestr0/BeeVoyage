@@ -1,0 +1,70 @@
+.business-hours {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.business-hours__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.05em;
+  padding: 8px 14px;
+  border-radius: 999px;
+  background: rgba(244, 238, 227, 0.08);
+  border: 1px solid rgba(244, 238, 227, 0.18);
+}
+
+.business-hours__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: #e2574c;
+}
+
+.business-hours__badge--open .business-hours__dot {
+  background: #58c27d;
+}
+
+.business-hours__badge--open {
+  color: #cdeedb;
+}
+
+.business-hours__badge--closed {
+  color: #f7d6d2;
+}
+
+.business-hours__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+.business-hours__row {
+  display: flex;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 9px 0;
+  border-top: 1px solid rgba(244, 238, 227, 0.14);
+  font-size: 0.88rem;
+  color: rgba(244, 238, 227, 0.72);
+}
+
+.business-hours__row:last-child {
+  border-bottom: 1px solid rgba(244, 238, 227, 0.14);
+}
+
+.business-hours__row--today {
+  color: var(--ink-5);
+  font-weight: 600;
+}
+
+.business-hours__row--today .business-hours__day::after {
+  content: " •";
+  color: var(--accent);
+}

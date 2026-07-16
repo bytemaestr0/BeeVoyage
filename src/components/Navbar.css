@@ -1,0 +1,184 @@
+.navbar_wrap {
+
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+  width: min(920px, calc(100% - 32px));
+}
+.navbar {
+  position: static;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+  padding: 10px 10px 10px 20px;
+  border-radius: 999px;
+  background: rgba(23, 27, 22, 0.72);
+  backdrop-filter: blur(14px) saturate(160%);
+  -webkit-backdrop-filter: blur(14px) saturate(160%);
+  box-shadow: 0 10px 30px rgba(10, 12, 10, 0.28), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  color: #F4EEE3;
+  /* Last-resort safety net: nothing should ever visually escape the pill,
+     even if an element's own truncation styles fail to catch an edge case. */
+  overflow: hidden;
+}
+
+.navbar__mark {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 0.98rem;
+  letter-spacing: -0.01em;
+  text-decoration: none;
+  color: inherit;
+  white-space: nowrap;
+}
+
+.navbar__mark-logo {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.navbar__mark-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.navbar__links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 18px;
+  min-width: 0;
+}
+
+.navbar__links a {
+  font-size: 0.88rem;
+  text-decoration: none;
+  color: rgba(244, 238, 227, 0.72);
+  transition: color 0.25s var(--ease-glide);
+  white-space: nowrap;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.navbar__links a:hover,
+.navbar__links a:focus-visible {
+  color: #F4EEE3;
+}
+
+.navbar__right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.navbar__cta {
+  flex-shrink: 1;
+  min-width: 0;
+  font-size: 0.85rem;
+  font-weight: 500;
+  text-decoration: none;
+  color: var(--accent-ink);
+  background: var(--accent);
+  padding: 10px 14px;
+  border-radius: 999px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: transform 0.25s var(--ease-glide), filter 0.25s var(--ease-glide);
+}
+
+.navbar__cta:hover,
+.navbar__cta:focus-visible {
+  transform: translateY(-1px);
+  filter: brightness(1.06);
+}
+
+.lang-switch {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(244, 238, 227, 0.08);
+  flex-shrink: 0;
+}
+
+.lang-switch__option {
+  appearance: none;
+  border: none;
+  background: transparent;
+  color: rgba(244, 238, 227, 0.62);
+  font-family: var(--font-mono, inherit);
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  padding: 7px 10px;
+  border-radius: 999px;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.2s var(--ease-glide), background 0.2s var(--ease-glide);
+}
+
+.lang-switch__option:hover {
+  color: #F4EEE3;
+}
+
+.lang-switch__option--active {
+  color: var(--accent-ink);
+  background: var(--accent);
+}
+
+@media (max-width: 720px) {
+  .navbar__links {
+    display: none;
+  }
+  .navbar {
+    padding: 10px 10px 10px 18px;
+    gap: 10px;
+  }
+
+  .navbar__right {
+    gap: 8px;
+  }
+
+  .navbar__cta {
+    padding: 9px 12px;
+    font-size: 0.8rem;
+  }
+
+  /* Flexbox's space-between naturally keeps the mark flush left and the
+     right block flush right even once .navbar__links drops out of flow,
+     so no extra positioning hack is needed here (unlike the old grid
+     layout, which required pinning explicit columns). */
+
+  /* The language switcher is fixed-size on desktop, but mobile is tighter
+     on room, so it still gets shrink/truncate protection here. */
+  .lang-switch {
+    flex-shrink: 1;
+    min-width: 0;
+    max-width: 100%;
+    overflow: hidden;
+  }
+
+  .lang-switch__option {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

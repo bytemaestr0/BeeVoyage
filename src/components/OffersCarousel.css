@@ -1,0 +1,287 @@
+.offers-carousel {
+  position: relative;
+}
+
+.offers-carousel__track {
+  display: flex;
+  gap: 20px;
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  padding: 4px 4px 20px;
+  margin: 0 -4px;
+  cursor: grab;
+  /* Hide the native scrollbar; the arrow buttons + drag are the affordance. */
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  touch-action: pan-y;
+}
+
+.offers-carousel__track::-webkit-scrollbar {
+  display: none;
+}
+
+.offers-carousel__track--grabbing {
+  cursor: grabbing;
+  scroll-snap-type: none;
+}
+
+.offer-card {
+  flex: 0 0 auto;
+  width: min(360px, 82vw);
+  scroll-snap-align: start;
+  background: var(--bg-2);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  user-select: none;
+}
+
+/* Fixed-ratio photo window: object-fit: cover crops symmetrically from
+   whichever axis overflows (top+bottom if the source is too tall, left+right
+   if it's too wide), always centered, so a replacement photo of any
+   proportions still fills the frame cleanly. */
+.offer-card__photo {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  background: linear-gradient(135deg, var(--bg-2), var(--bg-3));
+  overflow: hidden;
+}
+
+.offer-card__photo img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.offer-card__photo-fallback {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.6rem;
+  opacity: 0.5;
+  /* Sits visually behind the <img>; only shows once the image 404s and
+     hides itself via onError. */
+  z-index: -1;
+}
+
+.offer-card__body {
+  padding: 22px 22px 26px;
+  color: var(--ink-2);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.offer-card__destination {
+  font-size: 1.15rem;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.offer-card__tagline {
+  font-size: 0.92rem;
+  line-height: 1.5;
+  color: rgba(14, 39, 48, 0.72);
+  margin: 0;
+}
+
+.offer-card__facts {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 6px 10px;
+  margin: 4px 0 0;
+}
+
+.offer-card__facts div {
+  display: contents;
+}
+
+.offer-card__facts dt {
+  opacity: 0.8;
+}
+
+.offer-card__facts dd {
+  margin: 0;
+  font-family: var(--font-mono);
+  font-size: 0.85rem;
+}
+
+.offer-card__includes {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.offer-card__includes li {
+  font-size: 0.86rem;
+  color: rgba(14, 39, 48, 0.82);
+}
+
+.offer-card__note {
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: rgba(14, 39, 48, 0.6);
+  margin: 2px 0 0;
+}
+
+/* ---------- price / dates marquee ---------- */
+.price-marquee {
+  margin-top: 6px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.price-marquee__label {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: rgba(14, 39, 48, 0.62);
+}
+
+/* Fixed at 1.5x an item's width so the strip always shows one full
+   item plus half of the next — matching the "peek" of the next date
+   that signals there's more to see as it keeps drifting by. */
+.price-marquee__viewport {
+  position: relative;
+  width: 100%;
+  max-width: 251px;
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 6%,
+    #000 88%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent 0,
+    #000 6%,
+    #000 88%,
+    transparent 100%
+  );
+}
+
+.price-marquee__track {
+  display: flex;
+  gap: 14px;
+  width: max-content;
+  animation-name: price-marquee-scroll;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+  /* animation-duration is set inline per-card based on item count */
+}
+
+.offers-carousel__track--grabbing .price-marquee__track {
+  animation-play-state: paused;
+}
+
+@keyframes price-marquee-scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    /* Track content is duplicated, so -50% is exactly one full loop. */
+    transform: translateX(-50%);
+  }
+}
+
+.price-marquee__item {
+  flex: 0 0 auto;
+  width: 158px;
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 8px;
+  background: rgba(232, 162, 61, 0.1);
+  border: 1px solid rgba(232, 162, 61, 0.28);
+  border-radius: 10px;
+  padding: 8px 12px;
+  /* Purely informational — not meant to be selected, dragged, or
+     grabbed like the rest of the draggable carousel. */
+  user-select: none;
+  -webkit-user-select: none;
+  pointer-events: none;
+}
+
+.price-marquee__date {
+  font-size: 0.82rem;
+  color: rgba(14, 39, 48, 0.62);
+  white-space: nowrap;
+}
+
+.price-marquee__date::after {
+  content: "·";
+  margin-left: 8px;
+  opacity: 0.5;
+}
+
+.price-marquee__price {
+  font-family: var(--font-mono);
+  font-size: 0.98rem;
+  font-weight: 700;
+  color: var(--accent, #b5731a);
+  white-space: nowrap;
+}
+
+@media (max-width: 620px) {
+  .price-marquee__item {
+    width: 132px;
+    padding: 7px 10px;
+  }
+
+  .price-marquee__viewport {
+    max-width: 212px;
+  }
+}
+
+.offers-carousel__nav {
+  display: flex;
+  gap: 10px;
+  justify-content: flex-end;
+  margin-top: 4px;
+}
+
+.offers-carousel__arrow {
+  appearance: none;
+  border: 1px solid var(--line);
+  background: var(--bg-2);
+  color: var(--ink-2);
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: transform 0.25s var(--ease-glide), background 0.25s var(--ease-glide);
+}
+
+.offers-carousel__arrow:hover,
+.offers-carousel__arrow:focus-visible {
+  transform: translateY(-1px);
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+@media (max-width: 620px) {
+  .offer-card {
+    width: 84vw;
+  }
+}
